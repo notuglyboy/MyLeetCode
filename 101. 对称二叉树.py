@@ -69,6 +69,4 @@ if __name__ == "__main__":
     r = insertTree([1,2,2,None,3,None,3])
     d = isSymmetric(r)
     print(d)
-    #fontsearch
-    #fontprint(r)
     

@@ -4,13 +4,17 @@ class TreeNode:
          self.left = None
          self.right = None
 
-def buildTree(nums):
-	stack = []
-	i = 0
-	while i < len(nums):
-		d = 3
 
-
+def judge(self, node1, node2):
+    if node1 == None and node2 == None:
+        return True
+    if node1 == None or node2 == None:
+        return False
+    if node1.val != node2.val:
+        return False
+    left = self.judge(node1.left, node2.left)
+    right = self.judge(node1.right, node2.right)
+    return left and right
 
 def buildTree(nums):
     root = TreeNode(nums[0])
@@ -35,6 +39,31 @@ def buildTree(nums):
 
     return root
 
+def midprintStack(root):
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        if node:
+            stack.append(node)
+            stack.append(node.left)
+        else:
+            if stack:
+                tmp = stack.pop()
+                print(tmp.val)
+                stack.append(tmp.right)
+
+ 
+ 
+def frontprintStack(root):
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        if not node:
+            continue
+        print(node.val)
+        stack.append(node.right)
+        stack.append(node.left)
+    
 if __name__ == "__main__":
-    s = buildTree([1,2,2,None,3,None,3])
-    print(s.left.left)
+    s = buildTree([1,2,4,None,7,None,3, 6,9])
+    midprintStack(s)
