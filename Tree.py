@@ -10,6 +10,26 @@ def buildTree(nums):
 	while i < len(nums):
 		d = 3
 
+def afterprintStack(root):
+    stack = [root]
+    last_node = root
+    while stack:
+        node = stack.pop()
+        if not node:
+            last_node = None
+            continue
+        if node.left and last_node != node.left and node.right != last_node:
+            stack.append(node)
+            stack.append(node.left)
+            continue
+        elif node.right and node.right != last_node:
+            stack.append(node)
+            stack.append(node.right)
+            continue
+        if node.right == last_node or not node.right or (not node.right and not node.left):
+            print(node.val)
+            last_node = node
+            continue
 
 
 def buildTree(nums):
@@ -36,5 +56,6 @@ def buildTree(nums):
     return root
 
 if __name__ == "__main__":
-    s = buildTree([1,2,2,None,3,None,3])
-    print(s.left.left)
+    s = buildTree([1,2,3,5, None,7, 9])
+    afterprintStack(s)
+    #print(s.left.right)
