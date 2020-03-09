@@ -5,6 +5,33 @@ class TreeNode:
          self.right = None
 
 
+def buildTree(nums):
+	stack = []
+	i = 0
+	while i < len(nums):
+		d = 3
+
+def afterprintStack(root):
+    stack = [root]
+    last_node = root
+    while stack:
+        node = stack.pop()
+        if not node:
+            last_node = None
+            continue
+        if node.left and last_node != node.left and node.right != last_node:
+            stack.append(node)
+            stack.append(node.left)
+            continue
+        elif node.right and node.right != last_node:
+            stack.append(node)
+            stack.append(node.right)
+            continue
+        if node.right == last_node or not node.right or (not node.right and not node.left):
+            print(node.val)
+            last_node = node
+            continue
+
 def judge(self, node1, node2):
     if node1 == None and node2 == None:
         return True
@@ -67,3 +94,4 @@ def frontprintStack(root):
 if __name__ == "__main__":
     s = buildTree([1,2,4,None,7,None,3, 6,9])
     midprintStack(s)
+
