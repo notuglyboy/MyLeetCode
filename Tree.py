@@ -105,24 +105,27 @@ def listTree(node, dep):
 
 import queue
 node_queue = queue.Queue()
-def listTreeQueue(node1):
-    node_queue = [node1]
-    dep = 1
-    last_node_end = node1
+def listTreeQueue(root, sum):
+    if not root:
+        return False
+    node_queue = [(root, sum)]
+    last_node_end = root
     while node_queue:
-        node = node_queue[0]
+        node,remain = node_queue[0]
         del node_queue[0]
-        if not node.left and not node.right:
-            return dep
+        print(node.val)
+        remain -= node.val
+        if not node.left and not node.right and remain == 0:
+            return True
         if node.left:
-            node_queue.append(node.left)
+            node_queue.append((node.left, remain))
         if node.right:
-            node_queue.append(node.right)
+            node_queue.append((node.right, remain))
 
         if last_node_end == node:
-            dep += 1
             if node_queue:
                 last_node_end = node_queue[-1]
+    return False
 
 def minDepth(root: TreeNode) -> int:
     if not root:
@@ -133,7 +136,7 @@ def minDepth(root: TreeNode) -> int:
 
 
 if __name__ == "__main__":
-    s = buildTree([1,2,None])
-    g = minDepth(s)
+    s = buildTree([-2, None, -3])
+    g = listTreeQueue(s, -5)
     print(g)
 
