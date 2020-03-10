@@ -8,7 +8,6 @@ def generate(numRows: int):
 			new_row.append(last_row[n] + last_row[n+1])
 			n+=1
 		new_row.append(1)
-		#rows.append(new_row)
 	return new_row
 
 g = generate(0)
