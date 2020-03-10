@@ -4,6 +4,7 @@ class TreeNode:
          self.left = None
          self.right = None
 
+
 def buildTree(nums):
 	stack = []
 	i = 0
@@ -31,6 +32,16 @@ def afterprintStack(root):
             last_node = node
             continue
 
+def judge(self, node1, node2):
+    if node1 == None and node2 == None:
+        return True
+    if node1 == None or node2 == None:
+        return False
+    if node1.val != node2.val:
+        return False
+    left = self.judge(node1.left, node2.left)
+    right = self.judge(node1.right, node2.right)
+    return left and right
 
 def buildTree(nums):
     root = TreeNode(nums[0])
@@ -55,7 +66,50 @@ def buildTree(nums):
 
     return root
 
+def midprintStack(root):
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        if node:
+            stack.append(node)
+            stack.append(node.left)
+        else:
+            if stack:
+                tmp = stack.pop()
+                print(tmp.val)
+                stack.append(tmp.right)
+
+ 
+ 
+def frontprintStack(root):
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        if not node:
+            continue
+        print(node.val)
+        stack.append(node.right)
+        stack.append(node.left)
+    
+def listtree(node, depth):
+    if not node or (not node.left and not node.right):
+        return depth
+
+    left = listtree(node.left, depth if node.left else 0)
+    if left == -1:
+        return -1
+    right = listtree(node.right, depth if node.right else 0)
+    if right == -1:
+        return -1
+    print(left, right)
+    return max(left , right) + 1 if abs(left - right) <= 1 else -1
+
+def isBalanced(root: TreeNode) -> bool:
+    d = listtree(root,1)
+    return d
+
 if __name__ == "__main__":
-    s = buildTree([1, None, None])
-    afterprintStack(s)
-    #print(s.left.right)
+    s = buildTree([1,2,2,3,None,None,3,4,None,None,4])
+    g = isBalanced(s)
+    print(g)
+
