@@ -56,6 +56,6 @@ def buildTree(nums):
     return root
 
 if __name__ == "__main__":
-    s = buildTree([1,2,3,5, None,7, 9])
+    s = buildTree([1, None, None])
     afterprintStack(s)
     #print(s.left.right)
