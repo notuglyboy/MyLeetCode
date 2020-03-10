@@ -79,8 +79,6 @@ def midprintStack(root):
                 print(tmp.val)
                 stack.append(tmp.right)
 
- 
- 
 def frontprintStack(root):
     stack = [root]
     while stack:
@@ -90,26 +88,52 @@ def frontprintStack(root):
         print(node.val)
         stack.append(node.right)
         stack.append(node.left)
-    
-def listtree(node, depth):
+
+def listTree(node, dep):
     if not node or (not node.left and not node.right):
-        return depth
+        return dep
+    left = right = dep
+    
+    left =  listTree(node.left, dep)
+    right =  listTree(node.right, dep)
 
-    left = listtree(node.left, depth if node.left else 0)
-    if left == -1:
-        return -1
-    right = listtree(node.right, depth if node.right else 0)
-    if right == -1:
-        return -1
-    print(left, right)
-    return max(left , right) + 1 if abs(left - right) <= 1 else -1
+    if  not node.left:
+        left = right
+    if not node.right:
+        right = left
+    return min(left, right) + 1
 
-def isBalanced(root: TreeNode) -> bool:
-    d = listtree(root,1)
-    return d
+import queue
+node_queue = queue.Queue()
+def listTreeQueue(node1):
+    node_queue.put(node1)
+    dep = 1
+    last_node_end = node1
+    while not node_queue.empty():
+        node = node_queue.get_nowait()
+        if not node.left and not node.right:
+            return dep
+        if node.left:
+            node_queue.put(node.left)
+        if node.right:
+            node_queue.put(node.right)
+
+        if last_node_end == node:
+            dep += 1
+            last_node_end = node.left or node.right
+
+
+
+def minDepth(root: TreeNode) -> int:
+    if not root:
+        return 0
+    d = listTreeStack(root)
+    return  d
+
+
 
 if __name__ == "__main__":
-    s = buildTree([1,2,2,3,None,None,3,4,None,None,4])
-    g = isBalanced(s)
+    s = buildTree([1,2,None])
+    g = minDepth(s)
     print(g)
 
