@@ -9,5 +9,5 @@ def maxProfit(prices) -> int:
 			max = max if max > (price - ready_min) else (price - ready_min)
 	return max
 
-a = maxProfit([7,1,5,3,6,1,5])
+a = maxProfit([7,1,5,3,6,-1,5])
 print(a)
