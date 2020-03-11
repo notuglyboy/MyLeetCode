@@ -1,4 +1,4 @@
-def maxProfit(prices) -> int:
+def singleNumber(prices) -> int:
 	temp = 0
 	for i in prices:
 		temp ^= i
