@@ -16,7 +16,7 @@ def buildlist(list):
         else:
             tail.next = t
             tail = t
-    return head
+    return head, tail
 
 def printlist(l):
     index = l
@@ -51,7 +51,43 @@ def hascycle(head):
         fast = fast.next.next
     return False
 
-head = buildlist([1, 2])
-cyclelist(head, -1)
-f = hascycle(head)
+def getIntersectionNode(headA: ListNode, headB: ListNode):
+    if not headA or not headB:
+        return None
+    l1 = headA
+    l2 = headB
+    l1_flag = False
+    l2_flag = False
+
+    while l1 and l2:
+        if l1 == l2 and l1 != None:
+            return l1.val 
+
+        if not l1_flag and not l1.next:
+            l1 = headB
+            l1_flag = True
+        else:
+            l1 = l1.next
+
+
+        if not l2_flag and not l2.next:
+            l2_flag = True
+            l2 = headA   
+        else:
+            l2 = l2.next
+    return None
+
+def getIntersectionNode1(headA: ListNode, headB: ListNode):
+    pA, pB = headA, headB
+    while pA != pB:
+        pA = pA.next if pA else headB
+        pB = pB.next if pB else headA
+    return pA 
+l1, l1_t = buildlist([4, 1])
+l2, l2_t = buildlist([5,  1])
+tail, _ = buildlist([8, 4, 5])
+l1_t.next = tail
+l2_t.next = tail
+f = getIntersectionNode(l1, l2)
 print(f)
+#printlist(l2)
