@@ -7,11 +7,8 @@ def rob(nums):
     max1 = [nums[0],r]
     index = 2
     end = len(nums) - 1
-    while  index <= end + 1:
-        if index == end + 1:
-            t = max1[index - 2]
-        else:
-            t = max1[index -2] + nums[index]
+    while  index <= end:
+        t = max1[index -2] + nums[index]
         r = max(r, t)
         max1.append(r)
         index += 1
