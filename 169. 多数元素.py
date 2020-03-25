@@ -1,3 +1,4 @@
+# 摩尔投票法
 def majorityElement(nums):
     maj = nums[0]
     s = 1

@@ -48,23 +48,36 @@ def buildTree(nums):
     stack = [root]
     i = 1
     while i <= len(nums) - 1:
-        node = stack.pop()
-        if nums[i]:
+        node = stack[0]
+        if nums[i] != None:
             node.left = TreeNode(nums[i])
-        if nums[i+1]:
+        if nums[i+1] != None:
             node.right = TreeNode(nums[i+1])
-        top = None
-        if stack:
-            top = stack.pop()
-        if node.right:
-            stack.append(node.right)
+
+        del stack[0]
         if node.left:
             stack.append(node.left)
-        if top:
-            stack.append(top)
+        if node.right:
+            stack.append(node.right)
         i += 2
-
     return root
+
+
+def midprint_my(root):
+    stack = [root]
+    last_node = None
+    while stack:
+        node = stack[-1]
+        
+        if not node.left or last_node== node.left or (last_node and not last_node.right):
+            last_node = node
+            stack.pop()
+            print(node.val)
+            if node.right:
+                stack.append(node.right)
+        else:
+            if node.left:
+                stack.append(node.left)
 
 def midprintStack(root):
     stack = [root]
@@ -127,16 +140,10 @@ def listTreeQueue(root, sum):
                 last_node_end = node_queue[-1]
     return False
 
-def minDepth(root: TreeNode) -> int:
-    if not root:
-        return 0
-    d = listTreeQueue(root)
-    return  d
-
 
 
 if __name__ == "__main__":
-    s = buildTree([-2, None, -3])
-    g = listTreeQueue(s, -5)
-    print(g)
+    s = buildTree([6,2,8,0,4,7,9, None, None, 3, 5])
+    midprintStack(s)
+    #print(s.left.right.left.val)
 

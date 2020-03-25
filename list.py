@@ -83,11 +83,21 @@ def getIntersectionNode1(headA: ListNode, headB: ListNode):
         pA = pA.next if pA else headB
         pB = pB.next if pB else headA
     return pA 
-l1, l1_t = buildlist([4, 1])
-l2, l2_t = buildlist([5,  1])
-tail, _ = buildlist([8, 4, 5])
-l1_t.next = tail
-l2_t.next = tail
-f = getIntersectionNode(l1, l2)
-print(f)
+
+def revergeList(head):
+
+    tmp = head
+    old_n = tmp.next
+    tmp.next = None
+    while old_n:
+        new_n = old_n.next
+        old_n.next = tmp
+        tmp = old_n
+        old_n = new_n
+    return tmp
+
+
+head, _ = buildlist([8,4])
+n=revergeList(head)
+printlist(n)
 #printlist(l2)
