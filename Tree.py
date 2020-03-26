@@ -140,10 +140,25 @@ def listTreeQueue(root, sum):
                 last_node_end = node_queue[-1]
     return False
 
-
+def fund(root):
+    if not root:
+        return []
+    stack = [(root, '')]
+    result = []
+    while stack:
+        node, path = stack.pop()
+        if not node:
+            continue
+        if not node.left and not node.right:
+            result.append('{}{}'.format(path, node.val))
+        stack.append((node.right, '{}{}->'.format(path, node.val)))
+        stack.append((node.left, '{}{}->'.format(path, node.val)))
+    return result
 
 if __name__ == "__main__":
-    s = buildTree([6,2,8,0,4,7,9, None, None, 3, 5])
-    midprintStack(s)
+    s = buildTree([1,None, None])
+    ##s = buildTree([2, 1, None])
+    d = fund(s)
+    print(d)
     #print(s.left.right.left.val)
 
