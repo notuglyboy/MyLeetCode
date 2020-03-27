@@ -35,7 +35,7 @@ def verfi():
     len_n = random.randint(1,100)
     for i in range(len_n):
         nums.append(random.randint(0, 1000))
-    quicksort2(nums, 0, len(nums) -1)
+    quicksort(nums, 0, len(nums) -1)
     last = nums[0]
     for i in nums[1:]:
         if i< last:
@@ -71,7 +71,6 @@ def quicksort(nums, start, end):
 def quicksort2(nums, start, end):
     if start >= end:
         return
-
     flag = nums[end]
     index = start
     i = start
@@ -84,5 +83,45 @@ def quicksort2(nums, start, end):
     quicksort(nums, start, i - 1)
     quicksort(nums, i + 1, end)
 
-d = verfi()
-print(d)
+def quicksort_with_stack(nums, start1, end1):
+    stack = [(start1, end1)]
+    while stack:
+        start, end = stack.pop()
+        if start >= end:
+            continue
+        flag = nums[end]
+        index = start
+        i = start
+        while index < end:
+            if flag > nums[index]:
+                exchange(nums, i, index)
+                i += 1
+            index += 1
+        exchange(nums, i, end)
+        stack.append((start, i - 1))
+        stack.append((i + 1, end))
+    print(nums)
+
+def binary():
+    nums = [True, False]
+    start = 0
+    end = len(nums) - 1
+    while start < end:
+        mid = int((start + end) / 2)
+        if not nums[mid]:
+            end = mid
+        else:
+            start = mid + 1
+
+    return start
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.n = []
+        for index, num in enumerate(nums):
+            self.n[index] 
+
+    def sumRange(self, i: int, j: int) -> int:
+
+
