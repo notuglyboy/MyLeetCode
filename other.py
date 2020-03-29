@@ -115,13 +115,22 @@ def binary():
 
     return start
 
-class NumArray:
 
-    def __init__(self, nums: List[int]):
-        self.n = []
-        for index, num in enumerate(nums):
-            self.n[index] 
+def fun(n):
+    start = 0
+    end = n
+    while start <= end:
+        mid = int((start + end) / 2)
+        if mid * mid > n:
+            end = mid - 1
+        elif mid * mid < n:
+            start = mid + 1
+        else:
+            return True
+    return False
 
-    def sumRange(self, i: int, j: int) -> int:
 
+
+d = fun(64)
+print(d)
 
