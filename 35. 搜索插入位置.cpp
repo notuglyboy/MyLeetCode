@@ -22,12 +22,10 @@ int searchInsert(vector<int>& nums, int target) {
         if(nums[mid_index] < target)
         {
             start = mid_index + 1;
-            
-            
+
         }
         else{
             end = mid_index;
-
         }
 
     }
@@ -42,18 +40,3 @@ int main(int arg, char *argv[])
     cout<<index<<" target "<<target;
 }
 
-
-def find_distributor_level(level_range_list, target):
-    list_len = len(level_range_list)
-    i = 0
-    start = 0
-    end = len(level_range_list) - 1
-    while start <= end:
-        mid = int((start + end) / 2)
-        if level_range_list[mid] < target:
-            start = mid + 1
-        elif level_range_list[mid] > target:
-            end = mid - 1
-        else:
-            return mid
-    return start

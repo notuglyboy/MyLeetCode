@@ -131,7 +131,123 @@ def fun(n):
     return False
 
 
+list1 = [1,3]
+def find_index(n):
+    start = 0
+    end = len(list1) -1 
+    while start <= end:
+        #print(start)
+        mid = int((start + end) / 2)
+        if list1[mid] > n:
+            end = mid - 1
+        elif list1[mid] < n:
+            start = mid + 1
+        else:
+            return mid
+    return start
 
-d = fun(64)
-print(d)
+
+def kmp_next(patterm):
+    next_arr = [0]
+    index = 0
+    i = 1
+    while i < len(patterm):
+        print(index, i,patterm[index], patterm[i])
+        if patterm[i] == patterm[index]:
+            next_arr.append(index + 1)
+            index += 1
+            i +=1
+        else:
+            if index >= 1:
+                index = next_arr[index]
+                continue
+            if index == 0:
+                i+=1
+                next_arr.append(0)
+                continue
+
+    print(next_arr)
+    return next_arr
+
+
+def kmp_search(o_str, patterm, next_arr):
+    o_index = 0
+    p_index = 0
+    while o_index < len(o_str):
+        #print(o_index, p_index, o_str[o_index], patterm[p_index])
+        if o_str[o_index] == patterm[p_index]:
+            p_index += 1
+            o_index += 1
+        else:
+
+            if p_index >= 1:
+                p_index = next_arr[p_index-1]
+                continue
+
+            if p_index == -1 or p_index == 0:
+                o_index +=1
+                p_index = 0
+                continue
+
+        if p_index >= len(next_arr):
+            #print(o_index, p_index)
+
+            return o_index - len(next_arr)
+    return -1
+
+def strStr(o_str: str, patterm: str) -> int:
+    if not patterm:
+        return 0
+    next_arr = [0]
+    index = 0
+    i = 1
+    while i < len(patterm):
+        if patterm[i] == patterm[index]:
+            next_arr.append(index + 1)
+            index += 1
+            i +=1
+        else:
+
+
+            if index >= 1:
+                index = next_arr[index-1]
+                continue
+            if index == 0:
+                i+=1
+                next_arr.append(0)
+                continue
+    o_index = 0
+    p_index = 0
+    #for i, s in enumerate(o_str):
+    while o_index < len(o_str):
+        #print(o_index, p_index, o_str[o_index], patterm[p_index])
+        if o_str[o_index] == patterm[p_index]:
+            p_index += 1
+            o_index += 1
+        else:
+
+            if p_index >= 1:
+                p_index = next_arr[p_index-1]
+                continue
+
+            if p_index == -1 or p_index == 0:
+                o_index +=1
+                p_index = 0
+                continue
+
+        if p_index >= len(next_arr):
+            #print(o_index, p_index)
+
+            return o_index - len(next_arr)
+    return -1
+
+
+# o="mississippi"
+# p="sippi"
+o="ababcaababcaabc"
+p="ababcaabc"
+n = kmp_next(p)
+r = kmp_search(o,p,n)
+#r =strStr(o, p)
+print(r)
 

@@ -96,8 +96,35 @@ def revergeList(head):
         old_n = new_n
     return tmp
 
+def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
+    l1_index = l1
+    l2_index = l2
+    jin = 0
+    head = None
+    result_index = None
+    while l1_index or l2_index or jin :
+        l1_num = l1_index.val if l1_index else 0
+        l2_num = l2_index.val if l2_index else 0
+        tmp = l1_num + l2_num + jin
+        jin = 1 if tmp >= 10 else 0
+        r = tmp % 10
+        #print(tmp, jin, r)
+        if not result_index:
+            result_index = ListNode(r)
+            head = result_index
+        else:
+            result_index.next = ListNode(r)
+            result_index = result_index.next
+        if l1_index:
+            l1_index = l1_index.next
+        if l2_index:
+            l2_index = l2_index.next
+    return head
 
-head, _ = buildlist([8,4])
-n=revergeList(head)
+
+
+l1, _ = buildlist([9,9,9,9])
+l2, _ = buildlist([1])
+n=addTwoNumbers(l1, l2)
 printlist(n)
 #printlist(l2)

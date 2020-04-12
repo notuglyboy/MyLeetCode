@@ -155,10 +155,37 @@ def fund(root):
         stack.append((node.left, '{}{}->'.format(path, node.val)))
     return result
 
+
+def exchange_tree(node1, node2):
+    tmp = node1.val
+    node1.val = node2.val
+    node2.val = tmp
+
+
+def max_heap(root):
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        if not node:
+            continue
+
+        largest = node
+        if node.left and node.left.val > largest.val:
+            largest = node.left
+
+        if node.right and node.right.val > largest.val:
+            largest = node.right
+
+        if largest != node:
+            exchange_tree(largest, node)
+
+        stack.append(node.right)
+        stack.append(node.left)
+    return root
+
 if __name__ == "__main__":
-    s = buildTree([1,None, None])
-    ##s = buildTree([2, 1, None])
-    d = fund(s)
-    print(d)
-    #print(s.left.right.left.val)
+    s = buildTree([16, 4, 10,14,7,9,3,2,8,1,None])
+    d = max_heap(s)
+    frontprintStack(d)
+
 
