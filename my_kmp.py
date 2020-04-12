@@ -1,24 +1,8 @@
-def find_index(n):
-    start = 0
-    end = len(list1) -1 
-    while start <= end:
-        #print(start)
-        mid = int((start + end) / 2)
-        if list1[mid] > n:
-            end = mid - 1
-        elif list1[mid] < n:
-            start = mid + 1
-        else:
-            return mid
-    return start
-
-
 def kmp_next(patterm):
     next_arr = [0]
     index = 0
     i = 1
     while i < len(patterm):
-        #print(index, i,patterm[index], patterm[i])
         if patterm[i] == patterm[index]:
             next_arr.append(index + 1)
             index += 1
@@ -32,12 +16,34 @@ def kmp_next(patterm):
                 next_arr.append(0)
                 continue
 
-    #print(next_arr)
     return next_arr
 
 
-o="ababcaababcaabc"
-p="ababcaabc"
+def kmp_search(o_str, patterm, next_arr):
+    o_index = 0
+    p_index = 0
+    while o_index < len(o_str):
+        if o_str[o_index] == patterm[p_index]:
+            p_index += 1
+            o_index += 1
+        else:
+
+            if p_index >= 1:
+                p_index = next_arr[p_index-1]
+                continue
+
+            if p_index == -1 or p_index == 0:
+                o_index +=1
+                p_index = 0
+                continue
+
+        if p_index >= len(next_arr):
+            return o_index - len(next_arr)
+    return -1
+
+
+o="aaabaaaaaa"
+p="baar"
 n = kmp_next(p)
 r = kmp_search(o,p,n)
 #r =strStr(o, p)
