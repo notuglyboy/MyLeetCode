@@ -42,9 +42,9 @@ def kmp_search(o_str, patterm, next_arr):
     return -1
 
 
-o="aaabaaaaaa"
+o="abcabcbb"
 p="baar"
 n = kmp_next(p)
-r = kmp_search(o,p,n)
+#r = kmp_search(o,p,n)
 #r =strStr(o, p)
-print(r)
+print(n)

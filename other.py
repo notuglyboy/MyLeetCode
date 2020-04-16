@@ -131,7 +131,6 @@ def fun(n):
     return False
 
 
-list1 = [1,3]
 def find_index(n):
     start = 0
     end = len(list1) -1 
@@ -152,7 +151,7 @@ def kmp_next(patterm):
     index = 0
     i = 1
     while i < len(patterm):
-        print(index, i,patterm[index], patterm[i])
+        #print(index, i,patterm[index], patterm[i])
         if patterm[i] == patterm[index]:
             next_arr.append(index + 1)
             index += 1
@@ -166,7 +165,7 @@ def kmp_next(patterm):
                 next_arr.append(0)
                 continue
 
-    print(next_arr)
+    #print(next_arr)
     return next_arr
 
 
@@ -195,59 +194,45 @@ def kmp_search(o_str, patterm, next_arr):
             return o_index - len(next_arr)
     return -1
 
-def strStr(o_str: str, patterm: str) -> int:
-    if not patterm:
+def test(str1):
+    if not str1:
         return 0
-    next_arr = [0]
-    index = 0
-    i = 1
-    while i < len(patterm):
-        if patterm[i] == patterm[index]:
-            next_arr.append(index + 1)
-            index += 1
-            i +=1
+    start = 0
+    max_len = 0
+    str_max =0
+    hash_list = [None for i in range(128)]
+    for index, s in enumerate(str1):
+        if hash_list[ord(s)] != None:
+            max_len = max(str_max, max_len)
+            start = max(hash_list[ord(s)] + 1, start)
+            str_max = index - start + 1
         else:
+            str_max+=1
+        hash_list[ord(s)] = index
 
+    max_len = max(str_max, max_len)
+    return max_len
 
-            if index >= 1:
-                index = next_arr[index-1]
-                continue
-            if index == 0:
-                i+=1
-                next_arr.append(0)
-                continue
-    o_index = 0
-    p_index = 0
-    #for i, s in enumerate(o_str):
-    while o_index < len(o_str):
-        #print(o_index, p_index, o_str[o_index], patterm[p_index])
-        if o_str[o_index] == patterm[p_index]:
-            p_index += 1
-            o_index += 1
-        else:
-
-            if p_index >= 1:
-                p_index = next_arr[p_index-1]
-                continue
-
-            if p_index == -1 or p_index == 0:
-                o_index +=1
-                p_index = 0
-                continue
-
-        if p_index >= len(next_arr):
-            #print(o_index, p_index)
-
-            return o_index - len(next_arr)
-    return -1
+def judge(data, func):
+    for d in data:
+        f = func(d[0])
+        if f != d[1]:
+            print('error {}'.format(f))
+            return
 
 
 # o="mississippi"
 # p="sippi"
-o="ababcaababcaabc"
-p="ababcaabc"
-n = kmp_next(p)
-r = kmp_search(o,p,n)
+data = [
+('atbbta', 3),
+('abcabcbb', 3),
+('dvdf', 3),
+]
+
+
+
+#d = test('abba')
+judge(data, test)
 #r =strStr(o, p)
-print(r)
+#print(d)
 
