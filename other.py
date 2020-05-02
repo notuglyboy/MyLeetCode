@@ -194,45 +194,119 @@ def kmp_search(o_str, patterm, next_arr):
             return o_index - len(next_arr)
     return -1
 
-def test(str1):
-    if not str1:
-        return 0
-    start = 0
-    max_len = 0
-    str_max =0
-    hash_list = [None for i in range(128)]
-    for index, s in enumerate(str1):
-        if hash_list[ord(s)] != None:
-            max_len = max(str_max, max_len)
-            start = max(hash_list[ord(s)] + 1, start)
-            str_max = index - start + 1
-        else:
-            str_max+=1
-        hash_list[ord(s)] = index
+def convert(s: str, numRows: int) -> str:
+    if numRows <= 1:
+        return s
+    index = 0
+    result = ""
+    step = 2 * numRows - 2
+    for i in range(numRows, 0, -1):
+        step_t = step
+        print_index = numRows - i
+        step_first = step_t - (numRows - i) * 2
+        while print_index < len(s):
+            result += s[print_index]
+            if step_first <= 0:
+                step_first = step_t
+            print_index +=  step_first
+            step_first = step_t - step_first
 
-    max_len = max(str_max, max_len)
-    return max_len
+    return result
 
 def judge(data, func):
     for d in data:
         f = func(d[0])
         if f != d[1]:
-            print('error {}'.format(f))
+            print('error data {}, retuen {}'.format(d, f))
             return
 
+def test222():
+    for f,arg in zip(a, b):
+        arg_str = [str(t) for t in arg]
+        arg_str = ','.join(arg_str)
+        st = 'lru.{}({})'.format(f, arg_str)
+        print(st)
 
-# o="mississippi"
-# p="sippi"
-data = [
-('atbbta', 3),
-('abcabcbb', 3),
-('dvdf', 3),
-]
+def myprint(func):
+    def f(*arg, **kargs):
+        r = func(*arg, **kargs)
+        print(arg)
+        print('arg is  fun result is {}'.format(r))
+    return f
+
+def printlist(l):
+    index = l
+    while index:
+        print(index.key)
+        index = index.next
 
 
 
-#d = test('abba')
-judge(data, test)
-#r =strStr(o, p)
-#print(d)
+
+class stack(object):
+    def __init__(self):
+        self.s = []
+
+    def pop(self):
+        return self.s.pop()
+
+    def top(self):
+        return self.s[-1]
+
+    def push(self,value):
+        if value:
+            self.s.append(value)
+
+    def isempty(self):
+        return len(self.s) == 0
+
+    def stackprint(self):
+        for i in self.s:
+            print(i)
+
+priority_dict = {
+    '': 0,
+    '*':2,
+    '/':2,
+    '+':1,
+    '-':2,
+}
+
+
+s1 = stack()
+s2 = stack()
+def cal(str1):
+
+    now_op = ''
+    for s in str1:
+        if s.isdigit():
+            s1.push(s)
+            s2.push(now_op)
+
+        elif s == '(':
+            s2.push(now_op)
+            s2.push(s)
+            now_op = ''
+        elif s == ')':
+            while s2.top() != '(':
+                t = s2.pop()
+                s1.push(t)
+            s2.pop()
+            if s2.top() != '(':
+                s2.push(s2.pop())
+            #s1.push(s2.pop())
+            now_op = ''
+        else:
+            if priority_dict[s] > priority_dict[now_op]:
+                now_op = s
+
+    while not s2.isempty():
+        t = s2.pop()
+        s1.push(t)
+
+
+cal('4+(5+6)*7*3+5/2')
+s1.stackprint()
+
+
 
