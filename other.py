@@ -251,7 +251,10 @@ class stack(object):
         return self.s.pop()
 
     def top(self):
-        return self.s[-1]
+        if self.s:
+            return self.s[-1]
+        else:
+            return ''
 
     def push(self,value):
         if value:
@@ -261,15 +264,14 @@ class stack(object):
         return len(self.s) == 0
 
     def stackprint(self):
-        for i in self.s:
-            print(i)
+            print(self.s)
 
 priority_dict = {
     '': 0,
     '*':2,
     '/':2,
     '+':1,
-    '-':2,
+    '-':1,
 }
 
 
@@ -278,7 +280,13 @@ s2 = stack()
 def cal(str1):
 
     now_op = ''
+    i = 0
+    # while i < len(str1):
     for s in str1:
+        # s = str1[i]
+        print(s, now_op)
+        print(s2.s)
+        print(s1.s)
         if s.isdigit():
             s1.push(s)
             s2.push(now_op)
@@ -292,21 +300,56 @@ def cal(str1):
                 t = s2.pop()
                 s1.push(t)
             s2.pop()
-            if s2.top() != '(':
-                s2.push(s2.pop())
-            #s1.push(s2.pop())
-            now_op = ''
+            now_op = s2.top() if s2.top() != '(' else ''
         else:
-            if priority_dict[s] > priority_dict[now_op]:
-                now_op = s
+            if priority_dict[s] < priority_dict[now_op]:
+                while not s2.isempty() and priority_dict[s2.top()] >= priority_dict[s]:
+                    s1.push(s2.pop())
 
+            elif priority_dict[s] == priority_dict[now_op]:
+                if not s2.isempty():
+                    s1.push(s2.pop())
+
+            now_op = s
+        i += 1
+
+    s2.stackprint()
     while not s2.isempty():
         t = s2.pop()
         s1.push(t)
 
 
-cal('4+(5+6)*7*3+5/2')
+def decode(stack1):
+    result = stack()
+    cal1 = 0
+    for i in stack1:
+        print(i)
+        if i.isdigit():
+            # pass
+            result.push(i)
+        else:
+            print('is not di')
+            r = float(result.pop())
+            l = float(result.pop())
+            if i == '+':
+                t = l + r
+            if i == '-':
+                t = l - r
+            if i == '*':
+                t = l * r
+            if i == '/':
+                t = l / r
+            result.push(t)
+        result.stackprint()
+    return result.top()
+
+# cal('4-((5+6)*7)*3+5/2')
+cal('4-(3+6)+5/2')
 s1.stackprint()
+
+# f = decode(["10","6","9","3","+","-11","*","/","*","17","+","5","+"])
+# print(f)
+
 
 
 
