@@ -343,8 +343,8 @@ def decode(stack1):
         result.stackprint()
     return result.top()
 
-# cal('4-((5+6)*7)*3+5/2')
-cal('4-(3+6)+5/2')
+cal('4-((5+6)*7)*(3+9)+5/2')
+# cal('4-(3+6)+5/2')
 s1.stackprint()
 
 # f = decode(["10","6","9","3","+","-11","*","/","*","17","+","5","+"])
