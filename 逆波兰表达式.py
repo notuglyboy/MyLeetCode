@@ -1,3 +1,33 @@
+class stack(object):
+    def __init__(self):
+        self.s = []
+
+    def pop(self):
+        return self.s.pop()
+
+    def top(self):
+        if self.s:
+            return self.s[-1]
+        else:
+            return ''
+
+    def push(self,value):
+        if value:
+            self.s.append(value)
+
+    def isempty(self):
+        return len(self.s) == 0
+
+    def stackprint(self):
+            print(self.s)
+
+priority_dict = {
+    '': 0,
+    '*':2,
+    '/':2,
+    '+':1,
+    '-':1,
+}
 s1 = stack()
 s2 = stack()
 def cal(str1):
@@ -36,7 +66,7 @@ def cal(str1):
             now_op = s
         i += 1
 
-    s2.stackprint()
+    #s2.stackprint()
     while not s2.isempty():
         t = s2.pop()
         s1.push(t)
@@ -65,3 +95,6 @@ def decode(stack1):
             result.push(t)
         result.stackprint()
     return result.top()
+
+cal("(9-5)+2")
+s1.stackprint()

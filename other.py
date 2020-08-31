@@ -36,7 +36,7 @@ def verfi():
     len_n = random.randint(1,100)
     for i in range(len_n):
         nums.append(random.randint(0, 1000))
-    quicksort(nums, 0, len(nums) -1)
+    quicksort111(nums, 0, len(nums) -1)
     last = nums[0]
     for i in nums[1:]:
         if i< last:
@@ -72,18 +72,58 @@ def quicksort(nums, start, end):
 def quicksort2(nums, start, end):
     if start >= end:
         return
-    flag = nums[end]
+    guard = nums[end]
     index = start
-    i = start
+    small_index = start
     while index < end:
-        if flag > nums[index]:
-            exchange(nums, i, index)
-            i += 1
+        if guard > nums[index]:
+            exchange(nums, small_index, index)
+            small_index += 1
         index += 1
-    exchange(nums, i, end)
-    quicksort(nums, start, i - 1)
-    quicksort(nums, i + 1, end)
+    exchange(nums, small_index, end)
+    quicksort(nums, start, small_index - 1)
+    quicksort(nums, small_index + 1, end)
 
+nums = [3,5,7,2,4,1,9,4,6]
+def quicksort111(nums, start, end):
+    if start >= end:
+        return 
+    guard = nums[end]
+    index = start
+    small_index = start
+    
+    while index <= end:
+        if nums[index] < guard:
+            exchange(nums, index, small_index)
+            small_index += 1
+        index += 1
+
+    exchange(nums,small_index, end)
+    quicksort111(nums, start, small_index-1)
+    quicksort111(nums,small_index+1, end)
+
+
+def quick_sort_with_stack(nums, start1, end1):
+    if start >= end:
+        return 
+    stack = [start1, end1]
+    while stack:
+        start, end = stack.pop()
+        if start >= end:
+            continue 
+        guard = nums[end]
+        index = start
+        small_index = start
+        while index <= end:
+            if nums[index] < guard:
+                exchange(nums, index, small_index)
+                small_index += 1
+        index += 1
+        stack.append(start, small_index-1)
+        stack.append(small_index+1, end)
+
+# quicksort111(0, len(nums)-1)
+print(verfi())
 def quicksort_with_stack(nums, start1, end1):
     stack = [(start1, end1)]
     while stack:
@@ -343,9 +383,39 @@ def decode(stack1):
         result.stackprint()
     return result.top()
 
-cal('4-((5+6)*7)*(3+9)+5/2')
-# cal('4-(3+6)+5/2')
-s1.stackprint()
+
+
+def mySqrt(x: int) -> int:
+    result = 0
+    begin = 0
+    end = x
+    while begin <= end:
+        mid = int((begin + end) / 2)
+        result = mid * mid
+        if result > x:
+            end = mid - 1
+        elif result < x:
+            begin = mid + 1 
+        else:
+            return mid
+
+    return end
+
+def mySqrt2(x: int) -> int:
+    if x==0:
+        return 0
+    left = 1
+    right = x//2
+    while left<right:
+        mid = left + (right-left+1)//2
+        square = mid*mid
+        if square>x:
+            right = mid - 1
+        else:
+            left = mid 
+    return left
+
+
 
 # f = decode(["10","6","9","3","+","-11","*","/","*","17","+","5","+"])
 # print(f)
