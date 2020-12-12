@@ -123,7 +123,7 @@ def quick_sort_with_stack(nums, start1, end1):
         stack.append(small_index+1, end)
 
 # quicksort111(0, len(nums)-1)
-print(verfi())
+
 def quicksort_with_stack(nums, start1, end1):
     stack = [(start1, end1)]
     while stack:
@@ -415,11 +415,60 @@ def mySqrt2(x: int) -> int:
             left = mid 
     return left
 
+def threeSum2(nums):
+    nums = sorted(nums)
+    left = 0
+    len1 = len(nums)
+    result = []
+    for first in range(len1 - 1):
+        if first >= 1 and nums[first] == nums[first -1]:
+            continue
+        left = first + 1
+        right = len1 -1 
+        v = nums[first]
+        while left < right:
+            range_v = nums[left] + nums[right]
+            if v + range_v == 0:
+                
+                result.append([nums[first], nums[left], nums[right]])
+                right -= 1
+                left += 1
+                while left < right  and nums[left] == nums[left - 1]:
+                    left +=1
+                while left < right and nums[right] == nums[right + 1]: 
+                    right -=1
+            elif v + range_v < 0:
+                left += 1
+            elif v + range_v > 0:
+                right -= 1
+
+    return result
+
+def threeSumClosest(nums, target):
+    left = 0
+    right =len(nums) - 1
+    while left <= right:
+        mid = int((right + left) / 2)
+        print(left, mid, right)
+        if nums[left] <= nums[mid]:
+            if nums[left] < target <= nums[mid]:
+                right = mid
+            else:
+                left = mid + 1
+        elif nums[mid] < nums[right]:
+            if nums[mid] < target <= nums[right]:
+                left = mid + 1
+            else:
+                right = mid
+        else:
+            return mid if nums[mid] == target else -1
+
+    return -1
 
 
-# f = decode(["10","6","9","3","+","-11","*","/","*","17","+","5","+"])
-# print(f)
 
 
+f = divide(-2147483648,-1)
+print(f)
 
 
