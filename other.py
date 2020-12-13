@@ -281,12 +281,10 @@ def cal(str1):
 
     now_op = ''
     i = 0
-    # while i < len(str1):
     for s in str1:
-        # s = str1[i]
-        print(s, now_op)
-        print(s2.s)
-        print(s1.s)
+        # print(s, now_op)
+        # print(s2.s)
+        # print(s1.s)
         if s.isdigit():
             s1.push(s)
             s2.push(now_op)
@@ -303,7 +301,7 @@ def cal(str1):
             now_op = s2.top() if s2.top() != '(' else ''
         else:
             if priority_dict[s] < priority_dict[now_op]:
-                while not s2.isempty() and priority_dict[s2.top()] >= priority_dict[s]:
+                while not s2.isempty() and s2.top() != '(' and priority_dict[s2.top()] >= priority_dict[s]:
                     s1.push(s2.pop())
 
             elif priority_dict[s] == priority_dict[now_op]:
@@ -311,7 +309,6 @@ def cal(str1):
                     s1.push(s2.pop())
 
             now_op = s
-        i += 1
 
     s2.stackprint()
     while not s2.isempty():
@@ -322,7 +319,7 @@ def cal(str1):
 def decode(stack1):
     result = stack()
     cal1 = 0
-    for i in stack1:
+    for i in stack1.s:
         print(i)
         if i.isdigit():
             # pass
@@ -343,11 +340,12 @@ def decode(stack1):
         result.stackprint()
     return result.top()
 
-cal('4-((5+6)*7)*(3+9)+5/2')
+# cal('4-((5+6)*7)*(3+9)+5/2')
+cal('(2+6*3+5-(3*1/7+2)*5)+3')
 # cal('4-(3+6)+5/2')
 s1.stackprint()
 
-# f = decode(["10","6","9","3","+","-11","*","/","*","17","+","5","+"])
+f = decode(s1)
 # print(f)
 
 
