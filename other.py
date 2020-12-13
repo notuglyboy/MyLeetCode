@@ -491,7 +491,8 @@ def fourSum(nums, target):
 					second += 1
 				else:
 					result.append([nums[left], nums[first], nums[second], nums[third]])
-					break
+					second = first + 1
+					continue
 	return result
 
 # [-3,0,1,2]
