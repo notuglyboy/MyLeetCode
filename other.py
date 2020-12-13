@@ -466,9 +466,30 @@ def threeSumClosest(nums, target):
     return -1
 
 
+def isValid(s):
+    d = {"(":")", "[": "]", "{": "}"}
+    stack = []
+    for i in range(len(s)):
+        c = s[i]
+        if c in d:
+            stack.append(c)
+        else:
+            if not stack and d[c] != stack.pop():
+                return False
 
+    if stack:
+        return False
+    return True
 
-f = divide(-2147483648,-1)
+def isValid2(s: str):
+    dic = {'{': '}',  '[': ']', '(': ')', '?': '?'}
+    stack = ['?']
+    for c in s:
+        if c in dic: stack.append(c)
+        elif dic[stack.pop()] != c: return False 
+    return len(stack) == 1
+
+f = isValid2("][")
 print(f)
 
 
