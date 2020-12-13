@@ -5,12 +5,6 @@ class TreeNode:
          self.right = None
 
 
-def buildTree(nums):
-	stack = []
-	i = 0
-	while i < len(nums):
-		d = 3
-
 def afterprintStack(root):
     stack = [root]
     last_node = root
@@ -185,7 +179,7 @@ def max_heap(root):
 
 if __name__ == "__main__":
     s = buildTree([16, 4, 10,14,7,9,3,2,8,1,None])
-    d = max_heap(s)
-    frontprintStack(d)
+    d = midprintStack(s)
+    # frontprintStack(d)
 
 
