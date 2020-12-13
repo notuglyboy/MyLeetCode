@@ -380,17 +380,6 @@ def decode(stack1):
         result.stackprint()
     return result.top()
 
-<<<<<<< HEAD
-# cal('4-((5+6)*7)*(3+9)+5/2')
-cal('(2+6*3+5-(3*1/7+2)*5)+3')
-# cal('4-(3+6)+5/2')
-s1.stackprint()
-
-f = decode(s1)
-# print(f)
-=======
-
->>>>>>> 1545a5efb524d633655b8f8c09fd85537484af38
 
 def mySqrt(x: int) -> int:
     result = 0
@@ -473,30 +462,40 @@ def threeSumClosest(nums, target):
     return -1
 
 
-def isValid(s):
-    d = {"(":")", "[": "]", "{": "}"}
-    stack = []
-    for i in range(len(s)):
-        c = s[i]
-        if c in d:
-            stack.append(c)
-        else:
-            if not stack and d[c] != stack.pop():
-                return False
+def fourSum(nums, target):
+	nums = sorted(nums)
+	print(nums)
+	nums_l = len(nums)
+	result = []
+	if nums_l == 4 and sum(nums) == target:
+		return nums
+	for left in range(nums_l - 2):
+		for first in range(left + 1,nums_l - 1):
 
-    if stack:
-        return False
-    return True
+			if first - 1 >left and  nums[first] == nums[first - 1]:
+				continue
+			third = nums_l - 1
+			fixed = nums[left] + nums[first]
+			second = first + 1
+			# print(left, first, second, third, fixed)
 
-def isValid2(s: str):
-    dic = {'{': '}',  '[': ']', '(': ')', '?': '?'}
-    stack = ['?']
-    for c in s:
-        if c in dic: stack.append(c)
-        elif dic[stack.pop()] != c: return False 
-    return len(stack) == 1
+			while second < third:
+				# if nums[second] == nums[second - 1]:
+				# 	second += 1
+				# 	continue
+				comp_num = fixed +  nums[second] + nums[third]
+				if comp_num > target:
+				 	third -= 1
+				elif comp_num < target:
+					# print("")
+					second += 1
+				else:
+					result.append([nums[left], nums[first], nums[second], nums[third]])
+					break
+	return result
 
-f = isValid2("][")
-print(f)
+# [-3,0,1,2]
+result = fourSum([-3,-2,-1,0,0,1,2,3], 0)
+print(result)
 
 
