@@ -411,33 +411,35 @@ def mySqrt2(x: int) -> int:
             left = mid 
     return left
 
-def threeSum2(nums):
+def threesum(nums, target):
     nums = sorted(nums)
-    left = 0
-    len1 = len(nums)
+    nums_l = len(nums)
     result = []
-    for first in range(len1 - 1):
-        if first >= 1 and nums[first] == nums[first -1]:
-            continue
-        left = first + 1
-        right = len1 -1 
-        v = nums[first]
-        while left < right:
-            range_v = nums[left] + nums[right]
-            if v + range_v == 0:
-                
-                result.append([nums[first], nums[left], nums[right]])
-                right -= 1
-                left += 1
-                while left < right  and nums[left] == nums[left - 1]:
-                    left +=1
-                while left < right and nums[right] == nums[right + 1]: 
-                    right -=1
-            elif v + range_v < 0:
-                left += 1
-            elif v + range_v > 0:
-                right -= 1
+    if nums_l == 3 and sum(nums) == 0:
+        return nums
+    for first in range(nums_l - 1):
 
+        if first > 0 and  nums[first] == nums[first - 1]:
+            continue
+        third = nums_l - 1
+        fixed =  nums[first]
+        second = first + 1
+        print(first, second, third)
+
+        while second < third:
+            comp_num = fixed +  nums[second] + nums[third]
+
+            if second > first + 1 and nums[second] == nums[second -1]:
+                second += 1
+                continue
+            if comp_num > 0:
+                third -= 1
+                continue
+
+            elif comp_num == 0:
+                result.append([nums[first], nums[second], nums[third]])
+                third -= 1
+            second += 1
     return result
 
 def threeSumClosest(nums, target):
@@ -461,42 +463,24 @@ def threeSumClosest(nums, target):
 
     return -1
 
+def lengthOfLongestSubstring(s):
+    str_len = len(s)
+    hash_code = {}
+    result =0
+    max_sub = 0
+    start_index= 0
+    for i in range(str_len):
+        if s[i] not in hash_code:
+            result += 1
+        else:
+            start_index = max(hash_code[s[i]] + 1,start_index)
+            result = i - start_index + 1
+        hash_code[s[i]] = i
+        max_sub = max(max_sub, result)
+    return max_sub
 
-def fourSum(nums, target):
-	nums = sorted(nums)
-	print(nums)
-	nums_l = len(nums)
-	result = []
-	if nums_l == 4 and sum(nums) == target:
-		return nums
-	for left in range(nums_l - 2):
-		for first in range(left + 1,nums_l - 1):
-
-			if first - 1 >left and  nums[first] == nums[first - 1]:
-				continue
-			third = nums_l - 1
-			fixed = nums[left] + nums[first]
-			second = first + 1
-			# print(left, first, second, third, fixed)
-
-			while second < third:
-				# if nums[second] == nums[second - 1]:
-				# 	second += 1
-				# 	continue
-				comp_num = fixed +  nums[second] + nums[third]
-				if comp_num > target:
-				 	third -= 1
-				elif comp_num < target:
-					# print("")
-					second += 1
-				else:
-					result.append([nums[left], nums[first], nums[second], nums[third]])
-					second = first + 1
-					continue
-	return result
-
-# [-3,0,1,2]
-result = fourSum([-3,-2,-1,0,0,1,2,3], 0)
+# [-3,0,1,2] abcabcbb
+result = lengthOfLongestSubstring("asdfghjgd")
 print(result)
 
 

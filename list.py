@@ -121,10 +121,25 @@ def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
             l2_index = l2_index.next
     return head
 
+def removeNthFromEnd(head, n):
+    tmp = head
+    fast_index = 1
+    slow_index = 1
+    delete_node= head
+    pre_delete = head
+    while tmp:
+        if fast_index > n:
+            pre_delete = delete_node
+            delete_node = delete_node.next
+        fast_index += 1
+        tmp = tmp.next
+    if delete_node == head:
+        head = delete_node.next
+    else:
+        pre_delete.next = delete_node.next
+    return head
 
-
-l1, _ = buildlist([9,9,9,9])
-l2, _ = buildlist([1])
-n=addTwoNumbers(l1, l2)
+l1, _ = buildlist([1,2,3,4,5])
+n=removeNthFromEnd(l1, 5)
 printlist(n)
 #printlist(l2)
