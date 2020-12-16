@@ -10,3 +10,4 @@ def minWindow(s: str, t: str):
 
     for c in s:
         if c in ture_dict:
+
